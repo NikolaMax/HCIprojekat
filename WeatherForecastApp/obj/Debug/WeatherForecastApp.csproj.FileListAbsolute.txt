@@ -1,0 +1,17 @@
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\WeatherForecastApp.exe.config
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\WeatherForecastApp.exe
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\WeatherForecastApp.pdb
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\MainWindow.g.cs
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\App.g.cs
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp_MarkupCompile.cache
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp_MarkupCompile.lref
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\MainWindow.baml
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.g.resources
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.Properties.Resources.resources
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.csproj.GenerateResource.Cache
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.exe
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.pdb
+C:\Users\dzoni\Desktop\ProjekatHCI\WeatherForecastApp\WeatherForecastApp\obj\Debug\WeatherForecastApp.csprojResolveAssemblyReference.cache
