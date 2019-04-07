@@ -103,6 +103,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="WeatherIcon\search_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="WeatherIcon\unknown_weather.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="WeatherIcon\atmosphere.png" />
     <Resource Include="WeatherIcon\broken_clouds_day.png" />
     <Resource Include="WeatherIcon\broken_clouds_night.png" />
@@ -125,7 +131,7 @@
     <Resource Include="WeatherIcon\clouds_wallpaper.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="WeatherIcon\search_icon.png" />
+    <Resource Include="WeatherIcon\clouds_wallpaper2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

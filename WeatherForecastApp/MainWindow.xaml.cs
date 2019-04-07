@@ -61,7 +61,8 @@ namespace WeatherForecastApp
         {
             using (WebClient web = new WebClient())
             {
-                string url = string.Format("http://api.openweathermap.org/data/2.5/forecast?q={0}&mode=json&appid={1}&units=metric&cnt=40", city, APPID);
+                //cnt ne mora da se navede
+                string url = string.Format("http://api.openweathermap.org/data/2.5/forecast?q={0}&mode=json&appid={1}&units=metric",city,APPID);
                 var json = web.DownloadString(url);
 
                 var result = JsonConvert.DeserializeObject<InformacijeVreme.root>(json);
@@ -70,7 +71,8 @@ namespace WeatherForecastApp
                 nazivGrada.Content = string.Format("{0}", output.city.name);
                 trenutnaTemperatura.Content = string.Format("{0}\u00B0", (int)output.list[0].main.temp);
                 celzijusLabel.Content = "C";
-
+                
+                
                 //za capitalizaciju pocetnog slova svake reci
                 string capitalized = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[0].weather[0].description);
                 opis.Content = capitalized;
@@ -80,7 +82,56 @@ namespace WeatherForecastApp
 
                 slikaDanasnjiDan.Source = new BitmapImage(new Uri(path, UriKind.Relative));
 
+                int starting_index= 0;
+                for(int i=0; i < output.list.Count; i++)
+                {
+                    if (output.list[i].dt_txt.CompareTo(DateTime.Now)>0)
+                    {
+                        starting_index = i;
+                        break;
+                    }
+                }
+                 
+                //za prvi sat u hourly
+                hourly1.Content = output.list[starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly1.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly1.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                string ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly1.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+
+                //za drugi sat u hourly
+                hourly2.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly2.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly2.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly2.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+                //za treci sat u hourly
+                hourly3.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly3.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly3.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly3.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+                //za cetvrti sat u hourly
+                hourly4.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly4.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly4.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly4.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+                //za peti sat u hourly
+                hourly5.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly5.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly5.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly5.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
                 double dan = output.list[0].dt_txt.Day;
+
+                double minvreme0dan = 0;
+                double maxvreme0dan = 0; //za dan (danas)
 
                 double minvreme1dan = 0;
                 double maxvreme1dan = 0; //za dan (sutra)
@@ -97,28 +148,56 @@ namespace WeatherForecastApp
                 double maxvreme5dan = 0; //za 5 dana
                 double minvreme5dan = 0;
 
+                double humidity = 0;
+                double pressure = 0;
+                int cnt = 0;
                 //za svaki dan od naredna 4, izracunavamo njegovu min i max temperaturu, za prikaz 
                 foreach (var item in output.list)
                 {
-                    int index = output.list.IndexOf(item);
-                    double dan2 = output.list[index].dt_txt.Day;
-                    if (dan2 == dan + 1)
+                    //int index = output.list.IndexOf(item);
+                    double dan2 = item.dt_txt.Day;
+                    if (dan2 == dan)
                     {
-                        if (output.list[index].main.temp_max > maxvreme1dan)
+                        humidity += item.main.humidity;
+                        pressure += item.main.pressure;
+                        cnt++;
+                        if (item.main.temp_max > maxvreme0dan)
                         {
-                            maxvreme1dan = output.list[index].main.temp_max;
+                            maxvreme0dan = item.main.temp_max;
+                        }
+                        else
+                        {
+                            if (minvreme0dan == 0)
+                            {
+                                minvreme0dan = item.main.temp_min;
+                            }
+                            else
+                            {
+                                if (item.main.temp_min < minvreme0dan)
+                                {
+                                    minvreme0dan = item.main.temp_min;
+                                }
+                            }
+                        }
+
+                    }
+                    else if (dan2 == dan + 1)
+                    {
+                        if (item.main.temp_max > maxvreme1dan)
+                        {
+                            maxvreme1dan = item.main.temp_max;
                         }
                         else
                         {
                             if (minvreme1dan == 0)
                             {
-                                minvreme1dan = output.list[index].main.temp_min;
+                                minvreme1dan = item.main.temp_min;
                             }
                             else
                             {
-                                if (output.list[index].main.temp_min < minvreme1dan)
+                                if (item.main.temp_min < minvreme1dan)
                                 {
-                                    minvreme1dan = output.list[index].main.temp_min;
+                                    minvreme1dan = item.main.temp_min;
                                 }
                             }
                         }
@@ -126,93 +205,97 @@ namespace WeatherForecastApp
                     }
                     else if (dan2 == dan + 2)
                     {
-                        if (output.list[index].main.temp_max > maxvreme2dan)
+                        if (item.main.temp_max > maxvreme2dan)
                         {
-                            maxvreme2dan = output.list[index].main.temp_max;
+                            maxvreme2dan = item.main.temp_max;
                         }
                         else
                         {
                             if (minvreme2dan == 0)
                             {
-                                minvreme2dan = output.list[index].main.temp_min;
+                                minvreme2dan = item.main.temp_min;
                             }
                             else
                             {
-                                if (output.list[index].main.temp_min < minvreme2dan)
+                                if (item.main.temp_min < minvreme2dan)
                                 {
-                                    minvreme2dan = output.list[index].main.temp_min;
+                                    minvreme2dan = item.main.temp_min;
                                 }
                             }
                         }
                     }
                     else if (dan2 == dan + 3)
                     {
-                        if (output.list[index].main.temp_max > maxvreme3dan)
+                        if (item.main.temp_max > maxvreme3dan)
                         {
-                            maxvreme3dan = output.list[index].main.temp_max;
+                            maxvreme3dan = item.main.temp_max;
                         }
                         else
                         {
                             if (minvreme3dan == 0)
                             {
-                                minvreme3dan = output.list[index].main.temp_min;
+                                minvreme3dan = item.main.temp_min;
                             }
                             else
                             {
-                                if (output.list[index].main.temp_min < minvreme3dan)
+                                if (item.main.temp_min < minvreme3dan)
                                 {
-                                    minvreme3dan = output.list[index].main.temp_min;
+                                    minvreme3dan = item.main.temp_min;
                                 }
                             }
                         }
                     }
                     else if (dan2 == dan + 4)
                     {
-                        if(output.list[index].main.temp_max > maxvreme4dan)
+                        if(item.main.temp_max > maxvreme4dan)
                         {
-                            maxvreme4dan = output.list[index].main.temp_max;
+                            maxvreme4dan = item.main.temp_max;
                         }
                         else
                         {
                             if (minvreme4dan == 0)
                             {
-                                minvreme4dan = output.list[index].main.temp_min;
+                                minvreme4dan = item.main.temp_min;
                             }
                             else
                             {
-                                if (output.list[index].main.temp_min < minvreme4dan)
+                                if (item.main.temp_min < minvreme4dan)
                                 {
-                                    minvreme4dan = output.list[index].main.temp_min;
+                                    minvreme4dan = item.main.temp_min;
                                 }
                             }
                         }
                     }
                     else
                     {
-                        if (output.list[index].main.temp_max > maxvreme5dan)
+                        if (item.main.temp_max > maxvreme5dan)
                         {
-                            maxvreme5dan = output.list[index].main.temp_max;
+                            maxvreme5dan = item.main.temp_max;
                         }
                         else
                         {
                             if (minvreme5dan == 0)
                             {
-                                minvreme5dan = output.list[index].main.temp_min;
+                                minvreme5dan = item.main.temp_min;
                             }
                             else
                             {
-                                if (output.list[index].main.temp_min < minvreme5dan)
+                                if (item.main.temp_min < minvreme5dan)
                                 {
-                                    minvreme5dan = output.list[index].main.temp_min;
+                                    minvreme5dan = item.main.temp_min;
                                 }
                             }
                         }
                     }
 
                 }
-
+                
                 DateTime datum = DateTime.Now;
-
+                //za danas
+                danasnjiDatum.Content = datum.ToString("dd.MM.yyyy HH:mm");
+                MaxMin.Content = string.Format("      {0}\u00B0 / {1}\u00B0", (int)maxvreme0dan, (int)minvreme0dan);
+                Humidity.Content = string.Format("{0}%", (int)humidity/cnt);
+                Pressure.Content = string.Format("{0} mb", pressure/cnt);
                 //za dan 1
                 maxTemp1dan.Content = string.Format("{0}\u00B0", (int)maxvreme1dan);
                 minTemp1dan.Content = string.Format("{0}\u00B0", (int)minvreme1dan);
@@ -264,15 +347,26 @@ namespace WeatherForecastApp
 
 
                 //za dan 5
-                maxTemp5dan.Content = string.Format("{0}\u00B0", (int)maxvreme5dan); 
-                minTemp5dan.Content = string.Format("{0}\u00B0", (int)minvreme5dan);
-                dan5.Content = datum.AddDays(5).DayOfWeek;
                 string[] lista5 = ikonicaOpis(output, dan + 5);
-                string nazivIkone5 = converterIcon(Double.Parse(lista5[0]), lista5[1]);
-                string path5 = "/WeatherIcon/" + nazivIkone5;
+                dan5.Content = datum.AddDays(5).DayOfWeek;
+                if (lista5[0] != null)
+                {
+                    maxTemp5dan.Content = string.Format("{0}\u00B0", (int)maxvreme5dan);
+                    minTemp5dan.Content = string.Format("{0}\u00B0", (int)minvreme5dan);
+                    string nazivIkone5 = converterIcon(Double.Parse(lista5[0]), lista5[1]);
+                    string path5 = "/WeatherIcon/" + nazivIkone5;
 
-                slika5dan.Source = new BitmapImage(new Uri(path5, UriKind.Relative));
-                opis5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lista5[2]);
+                    slika5dan.Source = new BitmapImage(new Uri(path5, UriKind.Relative));
+                    opis5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lista5[2]);
+                }else
+                {
+                    string path5 = "/WeatherIcon/" + "unknown_weather.png";
+                    slika5dan.Source = new BitmapImage(new Uri(path5, UriKind.Relative));
+                    maxTemp5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("No data");
+                    slash5dan.Content = "";
+                    minTemp5dan.Content = "";
+                    opis5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("try again later");
+                }
 
                 Console.ReadLine();
 
@@ -283,24 +377,27 @@ namespace WeatherForecastApp
         //svakog dana u 12h 
         public String[] ikonicaOpis(InformacijeVreme.root output, double dan)
         {
+            //ako se gleda jako rano ujutru, nema informacija za dan 5!!, vraca null i desava se exception
             string[] lista = new string[3];
             string vreme = string.Empty;
+
             foreach (var item in output.list)
             {
-                int index = output.list.IndexOf(item);
-                vreme = output.list[index].dt_txt.ToString("HH:mm");
-                if ((output.list[index].dt_txt.Day == dan) && (vreme.Equals("12:00")))
+                //int index = output.list.IndexOf(item);
+                //vreme = item.dt_txt.ToString("HH:mm");
+                int sat = item.dt_txt.Hour;
+                if ((item.dt_txt.Day == dan) && (sat==12))
                 {
-                    lista[0] = output.list[index].weather[0].id.ToString();
-                    lista[1] = output.list[index].sys.pod;
-                    lista[2] = output.list[index].weather[0].description; //ovo se mora proveriti dobro weather[0]
+                    lista[0] = item.weather[0].id.ToString();
+                    lista[1] = item.sys.pod;
+                    lista[2] = item.weather[0].description; //ovo se mora proveriti dobro weather[0]
                     return lista;
                 }
             }
             return lista;
         }
 
-             public string converterIcon(double id, string timePeriod)
+        public string converterIcon(double id, string timePeriod)
         {
             string img = string.Empty;
             if (id >= 200 && id < 300) img = "thunderstorm.png";
@@ -308,9 +405,9 @@ namespace WeatherForecastApp
             else if (id >= 500 && id < 600) img = "rain.png";
             else if (id >= 600 && id < 700) img = "snow.png";
             else if (id >= 700 && id < 800) img = "atmosphere.png";
-            else if (id == 800) img = (timePeriod.Equals('d')) ? "clear_day.png" : "clear_night.png";
-            else if (id == 801) img = (timePeriod.Equals('d')) ? "few_clouds_day.png" : "few_clouds_night.png";
-            else if (id == 802 || id == 803) img = (timePeriod.Equals('d')) ? "broken_clouds_day.png" : "broken_clouds_night.png";
+            else if (id == 800) img = (timePeriod.Equals("d")) ? "clear_day.png" : "clear_night.png";
+            else if (id == 801) img = (timePeriod.Equals("d")) ? "few_clouds_day.png" : "few_clouds_night.png";
+            else if (id == 802 || id == 803) img = (timePeriod.Equals("d")) ? "broken_clouds_day.png" : "broken_clouds_night.png";
             else if (id == 804) img = "overcast_clouds.png";
             else if (id >= 900 && id < 903) img = "extreme.png";
             else if (id == 903) img = "cold.png";
@@ -319,5 +416,7 @@ namespace WeatherForecastApp
             else if (id == 906) img = "hail.png";
             return img;
         }
+
+        
     }
 }
