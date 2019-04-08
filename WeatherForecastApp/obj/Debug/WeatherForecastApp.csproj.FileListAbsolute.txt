@@ -52,3 +52,5 @@ C:\Users\P4\Desktop\HCI-Weather\HCIprojekat\WeatherForecastApp\obj\Debug\Weather
 C:\Users\P4\Desktop\HCI-Weather\HCIprojekat\WeatherForecastApp\obj\Debug\WeatherForecastApp.pdb
 C:\Users\P4\Desktop\HCI-Weather\HCIprojekat\WeatherForecastApp\bin\Debug\RestSharp.dll
 C:\Users\P4\Desktop\HCI-Weather\HCIprojekat\WeatherForecastApp\bin\Debug\RestSharp.xml
+C:\Users\Marieta\HCI-workspace\prvi_projekat_weather_app\HCIprojekat\WeatherForecastApp\bin\Debug\RestSharp.dll
+C:\Users\Marieta\HCI-workspace\prvi_projekat_weather_app\HCIprojekat\WeatherForecastApp\bin\Debug\RestSharp.xml
