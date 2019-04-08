@@ -434,6 +434,12 @@ namespace WeatherForecastApp
                     return lista;
                 }
             }
+            if (lista[0] == null)
+            {
+                lista[0] = output.list[0].weather[0].id.ToString();
+                lista[1] = output.list[0].sys.pod;
+                lista[2] = output.list[0].weather[0].description;
+            }
             return lista;
         }
 
