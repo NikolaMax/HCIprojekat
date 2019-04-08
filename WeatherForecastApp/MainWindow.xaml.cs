@@ -18,7 +18,6 @@ using RestSharp;
 using System.Collections;
 using System.IO;
 using System.Globalization;
-
 namespace WeatherForecastApp
 {
     /// <summary>
