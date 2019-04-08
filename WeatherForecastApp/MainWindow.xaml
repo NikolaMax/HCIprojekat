@@ -11,200 +11,221 @@
         ResizeMode="CanResizeWithGrip"
         Title="WeatherForecastApp" Height="425" Width="740">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid FocusManager.FocusedElement="{Binding ElementName=searchTb}">
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="185*" />
-                <RowDefinition Height="37*" />
-                <RowDefinition Height="77*" />
-                <RowDefinition Height="81*"/>
-                <RowDefinition Height="37*" />
-                <RowDefinition Height="158*" />
-                <RowDefinition Height="1*"/>
-                
-            </Grid.RowDefinitions>
-            <Grid.Background>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Name="Skroler">
+        <DockPanel>
+            <DockPanel.Background>
                 <ImageBrush ImageSource="pack://application:,,,/WeatherIcon/clouds_wallpaper2.jpg" Stretch="UniformToFill"/>
-            </Grid.Background>
+            </DockPanel.Background>
+            <Grid DockPanel.Dock="Top" FocusManager.FocusedElement="{Binding ElementName=searchTb}">
 
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="185*" />
+                    <RowDefinition Height="37*" />
+                    <RowDefinition Height="77*" />
+                    <RowDefinition Height="81*"/>
+                    <RowDefinition Height="37*" />
+                    <RowDefinition Height="158*" />
+                    <RowDefinition Height="1*"/>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" >
-                    <TextBox x:Name="searchTb" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Height="22" Opacity="0.7"/>
-                    <Button Background="Transparent" Click="onBtnClick" Height="22" Width="28">
-                        <Image Margin="0,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Center" Source="pack://application:,,,/WeatherIcon/search_icon.png" Width="28" Height="22" Cursor="Hand" ToolTip="Search"/>
-                    </Button>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,0,20,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Label x:Name="lbl_error" FontFamily="Arial" FontWeight="Bold" Width="110" Margin="10,0,0,0" Foreground="#FF990000"></Label>
-                </StackPanel>
+                </Grid.RowDefinitions>
+               
 
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3">
 
-            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="79,0">
-                <Label x:Name="nazivGrada" FontWeight="Bold" FontSize="15" Content="Naziv grada" HorizontalAlignment="Center"/>
-                <Label x:Name="danasnjiDatum" Content="Datum i vreme" HorizontalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal">
-                    <Image  Source="pack://application:,,,/WeatherIcon/clear_day.png"  Name="slikaDanasnjiDan" Width="100" Height="60"></Image>
-                    <Label Name="trenutnaTemperatura" FontSize="50">T</Label>
-                    <Label x:Name="celzijusLabel" FontSize="25" Content="Celzijus" Height="42" Width="104" RenderTransformOrigin="0.521,1.076"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="MaxMin" Width="100">Max/Min</Label>
-                    <Label Name="opis" HorizontalAlignment="Center">Opis</Label>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label >Humidity:</Label>
-                    <Label Name="Humidity" HorizontalAlignment="Center">humidity</Label>
-                    <Label >Pressure:</Label>
-                    <Label Name="Pressure" Width="100" HorizontalAlignment="Center">pressure</Label>
-                </StackPanel>
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" >
+                        <TextBox x:Name="searchTb" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left" Height="22" Opacity="0.7"/>
+                        <Button Background="Transparent" Click="onBtnClick" Height="22" Width="28" IsDefault="True">
+                            <Image Margin="0,0,0,0"  VerticalAlignment="Center" HorizontalAlignment="Center" Source="pack://application:,,,/WeatherIcon/search_icon.png" Width="28" Height="22" Cursor="Hand" ToolTip="Search"/>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,20,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label x:Name="lbl_error" FontFamily="Arial" FontWeight="Bold" Width="110" Margin="10,0,0,0" Foreground="#FF990000"></Label>
+                    </StackPanel>
 
-            <Label VerticalAlignment="Bottom" FontSize="20" Content="Daily" Grid.Row="1" Grid.Column="0" ></Label>
-
-            <StackPanel Orientation="Vertical" Grid.Column ="0" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
-                <Label Name="dan0" HorizontalAlignment="Center">danas</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika0dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp0dan" FontSize="20">Max</Label>
-                    <Label VerticalAlignment="Center" >/</Label>
-                    <Label Name="minTemp0dan" VerticalAlignment="Bottom" >Min</Label>
                 </StackPanel>
 
-                <Label Name="opis0dan" >Opis</Label>
-            </StackPanel>
-
-            <StackPanel Orientation="Vertical" Grid.Column ="1" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
-                <Label Name="dan1" HorizontalAlignment="Center">1. dan</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika1dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp1dan" FontSize="20">Max</Label>
-                    <Label VerticalAlignment="Center" >/</Label>
-                    <Label Name="minTemp1dan" VerticalAlignment="Bottom" >Min</Label>
+                <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" Margin="79,0">
+                    <Label x:Name="nazivGrada" FontWeight="Bold" FontSize="15" Content="Naziv grada" HorizontalAlignment="Center"/>
+                    <Label x:Name="danasnjiDatum" Content="Datum i vreme" HorizontalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image  Source="pack://application:,,,/WeatherIcon/clear_day.png"  Name="slikaDanasnjiDan" Width="100" Height="60"></Image>
+                        <Label Name="trenutnaTemperatura" FontSize="50">T</Label>
+                        <Label x:Name="celzijusLabel" FontSize="25" Content="Celzijus" Height="42" Width="104" RenderTransformOrigin="0.521,1.076"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="MaxMin" Width="100">Max/Min</Label>
+                        <Label Name="opis" HorizontalAlignment="Center">Opis</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label >Humidity:</Label>
+                        <Label Name="Humidity" HorizontalAlignment="Center">humidity</Label>
+                        <Label >Pressure:</Label>
+                        <Label Name="Pressure" Width="100" HorizontalAlignment="Center">pressure</Label>
+                    </StackPanel>
                 </StackPanel>
 
-                <Label Name="opis1dan" >Opis</Label>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
-                <Label Name="dan2" HorizontalAlignment="Center">2. dan</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika2dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp2dan" FontSize="20">Max</Label>
-                    <Label VerticalAlignment="Center" >/</Label>
-                    <Label Name="minTemp2dan" VerticalAlignment="Bottom" >Min</Label>
-                </StackPanel>
-                <Label Name="opis2dan" >Opis</Label>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0,27,0" Grid.RowSpan="2">
-                <Label Name="dan3" HorizontalAlignment="Center">3. dan</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika3dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp3dan" FontSize="20">Max</Label>
-                    <Label VerticalAlignment="Center" >/</Label>
-                    <Label x:Name="minTemp3dan" VerticalAlignment="Bottom" Content="Min" />
+                <Label VerticalAlignment="Bottom" FontSize="20" Content="Daily" Grid.Row="1" Grid.Column="0" ></Label>
+
+                <StackPanel Orientation="Vertical" Grid.Column ="0" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
+                    <Label Name="dan0" HorizontalAlignment="Center">danas</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika0dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp0dan" FontSize="20">Max</Label>
+                        <Label VerticalAlignment="Center" >/</Label>
+                        <Label Name="minTemp0dan" VerticalAlignment="Bottom" >Min</Label>
+                    </StackPanel>
+
+                    <Label Name="opis0dan" >Opis</Label>
                 </StackPanel>
 
-                <Label Name="opis3dan" >Opis</Label>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
-                <Label Name="dan4" HorizontalAlignment="Center">4. dan</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika4dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp4dan" FontSize="20">Max</Label>
-                    <Label VerticalAlignment="Center" >/</Label>
-                    <Label Name="minTemp4dan" VerticalAlignment="Bottom" >Min</Label>
+                <StackPanel Orientation="Vertical" Grid.Column ="1" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
+                    <Label Name="dan1" HorizontalAlignment="Center">1. dan</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika1dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp1dan" FontSize="20">Max</Label>
+                        <Label VerticalAlignment="Center" >/</Label>
+                        <Label Name="minTemp1dan" VerticalAlignment="Bottom" >Min</Label>
+                    </StackPanel>
+
+                    <Label Name="opis1dan" >Opis</Label>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
+                    <Label Name="dan2" HorizontalAlignment="Center">2. dan</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika2dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp2dan" FontSize="20">Max</Label>
+                        <Label VerticalAlignment="Center" >/</Label>
+                        <Label Name="minTemp2dan" VerticalAlignment="Bottom" >Min</Label>
+                    </StackPanel>
+                    <Label Name="opis2dan" >Opis</Label>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0,27,0" Grid.RowSpan="2">
+                    <Label Name="dan3" HorizontalAlignment="Center">3. dan</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika3dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp3dan" FontSize="20">Max</Label>
+                        <Label VerticalAlignment="Center" >/</Label>
+                        <Label x:Name="minTemp3dan" VerticalAlignment="Bottom" Content="Min" />
+                    </StackPanel>
+
+                    <Label Name="opis3dan" >Opis</Label>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Margin="26,0" Grid.RowSpan="2">
+                    <Label Name="dan4" HorizontalAlignment="Center">4. dan</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika4dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp4dan" FontSize="20">Max</Label>
+                        <Label VerticalAlignment="Center" >/</Label>
+                        <Label Name="minTemp4dan" VerticalAlignment="Bottom" >Min</Label>
+                    </StackPanel>
+
+                    <Label Name="opis4dan" >Opis</Label>
+
                 </StackPanel>
 
-                <Label Name="opis4dan" >Opis</Label>
-            </StackPanel>
+                <Button Name="btn1" Opacity="0.25" Grid.Column="0" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
+                <Button Name="btn2" Opacity="0.25" Grid.Column="1" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
+                <Button Name="btn3" Opacity="0.25" Grid.Column="2" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
+                <Button Name="btn4" Opacity="0.25" Grid.Column="3" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
+                <Button Name="btn5" Opacity="0.25" Grid.Column="4" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
+            </Grid>
             <!--<StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Center" Margin="27,0,26,0" Grid.RowSpan="2">
-                <Label Name="dan5" HorizontalAlignment="Center">5. dan</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika5dan" HorizontalAlignment="center" Width="80"></Image>
-                <StackPanel Orientation="Horizontal">
-                    <Label Name="maxTemp5dan" FontSize="20">Max</Label>
-                    <Label Name="slash5dan" VerticalAlignment="Center" >/</Label>
-                    <Label Name="minTemp5dan" VerticalAlignment="Bottom" >Min</Label>
+                    <Label Name="dan5" HorizontalAlignment="Center">5. dan</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika5dan" HorizontalAlignment="center" Width="80"></Image>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="maxTemp5dan" FontSize="20">Max</Label>
+                        <Label Name="slash5dan" VerticalAlignment="Center" >/</Label>
+                        <Label Name="minTemp5dan" VerticalAlignment="Bottom" >Min</Label>
+                    </StackPanel>
+
+                    <Label Name="opis5dan" >Opis</Label>
+                </StackPanel>-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <StackPanel DockPanel.Dock="Bottom"  Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                    <!--Label VerticalAlignment="Bottom" FontSize="20" Content="Daily" Grid.Row="1" Grid.Column="0" -->
+                    <Label Width="100" VerticalAlignment="Bottom" FontSize="20" Content="Hourly"  Grid.Row="0" Grid.Column="0"  ></Label>
+                    <Label Width="100"  VerticalAlignment="Bottom" Name="hourly_datum" Grid.Row="0" Grid.Column="1" ></Label>
+                    <Label Name="day_hourly"  VerticalAlignment="Bottom" Grid.Row="0" Grid.Column="1" ></Label>
+                </StackPanel>
+                <StackPanel Name="stack1hourly" Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+                    <Label Name="hourly1" HorizontalAlignment="Center">1. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly1" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly1" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly1" >Opis</Label>
                 </StackPanel>
 
-                <Label Name="opis5dan" >Opis</Label>
-            </StackPanel>-->
+                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+                    <Label Name="hourly2" HorizontalAlignment="Center">2. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly2" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly2" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly2" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
-                <Label Width="100" VerticalAlignment="Bottom" FontSize="20" Content="Hourly"   ></Label>
-                <Label Width="100" Name="hourly_datum"></Label>
-                <Label Name="day_hourly"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="5">
-                <Label Name="hourly1" HorizontalAlignment="Center">1. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly1" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly1" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly1" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="1">
+                    <Label Name="hourly3" HorizontalAlignment="Center">3. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly3" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly3" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly3" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="5">
-                <Label Name="hourly2" HorizontalAlignment="Center">2. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly2" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly2" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly2" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="1">
+                    <Label Name="hourly4" HorizontalAlignment="Center">4. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly4" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly4" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly4" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="5">
-                <Label Name="hourly3" HorizontalAlignment="Center">3. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly3" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly3" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly3" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="1">
+                    <Label Name="hourly5" HorizontalAlignment="Center">5. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly5" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly5" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly5" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="3" Grid.Row="5">
-                <Label Name="hourly4" HorizontalAlignment="Center">4. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly4" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly4" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly4" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="5" Grid.Row="1">
+                    <Label Name="hourly6" HorizontalAlignment="Center">6. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly6" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly6" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly6" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="4" Grid.Row="5">
-                <Label Name="hourly5" HorizontalAlignment="Center">5. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly5" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly5" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly5" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="6" Grid.Row="1">
+                    <Label Name="hourly7" HorizontalAlignment="Center">7. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly7" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly7" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly7" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="6">
-                <Label Name="hourly6" HorizontalAlignment="Center">6. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly6" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly6" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly6" >Opis</Label>
-            </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="7" Grid.Row="1">
+                    <Label Name="hourly8" HorizontalAlignment="Center">8. sat</Label>
+                    <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly8" HorizontalAlignment="center" Width="80"></Image>
+                    <Label HorizontalAlignment="Center" Name="Temp_hourly8" FontSize="20">Curr temp</Label>
+                    <Label HorizontalAlignment="Center" Name="opis_hourly8" >Opis</Label>
+                </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="6">
-                <Label Name="hourly7" HorizontalAlignment="Center">7. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly7" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly7" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly7" >Opis</Label>
-            </StackPanel>
 
-            <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="6">
-                <Label Name="hourly8" HorizontalAlignment="Center">8. sat</Label>
-                <Image Source="pack://application:,,,/WeatherIcon/clear_day.png" Name="slika_hourly8" HorizontalAlignment="center" Width="80"></Image>
-                <Label HorizontalAlignment="Center" Name="Temp_hourly8" FontSize="20">Curr temp</Label>
-                <Label HorizontalAlignment="Center" Name="opis_hourly8" >Opis</Label>
-            </StackPanel>
-            
-            <Button Name="btn1" Opacity="0.25" Grid.Column="0" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View" ></Button>
-            <Button Name="btn2" Opacity="0.25" Grid.Column="1" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
-            <Button Name="btn3" Opacity="0.25" Grid.Column="2" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
-            <Button Name="btn4" Opacity="0.25" Grid.Column="3" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
-            <Button Name="btn5" Opacity="0.25" Grid.Column="4" Grid.Row="2" Background="Transparent" Click="Button_Click" Grid.RowSpan="2" Cursor="Hand" ToolTip="Hourly View"></Button>
-            
-        </Grid>
+            </Grid>
+        </DockPanel>
     </ScrollViewer>
 </Window>

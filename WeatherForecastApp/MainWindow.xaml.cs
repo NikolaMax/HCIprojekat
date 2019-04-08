@@ -566,7 +566,7 @@ namespace WeatherForecastApp
             DateTime danas = DateTime.Now;
             switch (btn)
             {
-                case "btn1":   break;
+                case "btn1": break;
                 case "btn2": danas=danas.AddDays(1);  break;
                 case "btn3": danas=danas.AddDays(2);  break;
                 case "btn4": danas=danas.AddDays(3);  break;
@@ -599,7 +599,9 @@ namespace WeatherForecastApp
             {
                 starting_index = -1;
             }
-            popuniHourly(starting_index); 
+
+            popuniHourly(starting_index);
+            Skroler.ScrollToEnd();
 
         }
 
