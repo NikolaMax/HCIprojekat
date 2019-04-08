@@ -128,8 +128,9 @@ namespace WeatherForecastApp
 
                 var result = JsonConvert.DeserializeObject<InformacijeVreme.root>(json);
                 output = result;
-
-                nazivGrada.Content = string.Format("{0}", output.city.name);
+                hourly_datum.Content = "";
+                day_hourly.Content = "";
+                nazivGrada.Content = string.Format("{0}, {1}", output.city.name, output.city.country);
                 trenutnaTemperatura.Content = string.Format("{0}\u00B0", (int)output.list[0].main.temp);
                 celzijusLabel.Content = "C";
                 
@@ -153,10 +154,11 @@ namespace WeatherForecastApp
                     }
                 }
 
+
                 popuniHourly(starting_index);
 
-                //DateTime dan = output.list[0].dt_txt;
-                DateTime dan = DateTime.Now;
+                DateTime dan = output.list[0].dt_txt;
+                //DateTime dan = DateTime.Now;
                 double minvreme0dan = 0;
                 double maxvreme0dan = 0; //za dan (danas)
 
@@ -172,8 +174,8 @@ namespace WeatherForecastApp
                 double maxvreme4dan = 0; //za 4 dana
                 double minvreme4dan = 0;
 
-                double maxvreme5dan = 0; //za 5 dana
-                double minvreme5dan = 0;
+                //double maxvreme5dan = 0; //za 5 dana
+                //double minvreme5dan = 0;
 
                 
                 //za svaki dan od naredna 4, izracunavamo njegovu min i max temperaturu, za prikaz 
@@ -290,7 +292,7 @@ namespace WeatherForecastApp
                             }
                         }
                     }
-                    else
+                    /*else
                     {
                         if (item.main.temp_max > maxvreme5dan)
                         {
@@ -310,16 +312,28 @@ namespace WeatherForecastApp
                                 }
                             }
                         }
-                    }
+                    }*/
 
                 }
                 
                 DateTime datum = DateTime.Now;
                 //za danas
-                danasnjiDatum.Content = datum.ToString("dd.MM.yyyy HH:mm");
-                MaxMin.Content = string.Format("      {0}\u00B0 / {1}\u00B0", (int)maxvreme0dan, (int)minvreme0dan);
+                danasnjiDatum.Content = datum.ToString("dd.MM.yyyy HH:mm")+"\n"+datum.DayOfWeek;
+                MaxMin.Content = string.Format("      {0}\u00B0 / {1}\u00B0", (int)output.list[0].main.temp_max, (int)output.list[0].main.temp_min);
                 Humidity.Content = string.Format("{0}%", (int)output.list[0].main.humidity);
                 Pressure.Content = string.Format("{0} mb", Math.Round(output.list[0].main.pressure, 2));
+
+                //za danas
+                maxTemp0dan.Content = string.Format("{0}\u00B0", (int)maxvreme0dan);
+                minTemp0dan.Content = string.Format("{0}\u00B0", (int)minvreme0dan);
+                dan0.Content = datum.DayOfWeek;
+                string[] lista0 = ikonicaOpis(output, dan.Day);
+                string nazivIkone0 = converterIcon(Double.Parse(lista0[0]), lista0[1]);
+                string path0 = "/WeatherIcon/" + nazivIkone0;
+
+                slika0dan.Source = new BitmapImage(new Uri(path0, UriKind.Relative));
+                opis0dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lista0[2]);
+
                 //za dan 1
                 maxTemp1dan.Content = string.Format("{0}\u00B0", (int)maxvreme1dan);
                 minTemp1dan.Content = string.Format("{0}\u00B0", (int)minvreme1dan);
@@ -371,7 +385,7 @@ namespace WeatherForecastApp
 
 
                 //za dan 5
-                string[] lista5 = ikonicaOpis(output, dan.AddDays(5).Day);
+               /* string[] lista5 = ikonicaOpis(output, dan.AddDays(5).Day);
                 dan5.Content = datum.AddDays(5).DayOfWeek;
                 if (lista5[0] != null)
                 {
@@ -382,6 +396,7 @@ namespace WeatherForecastApp
 
                     slika5dan.Source = new BitmapImage(new Uri(path5, UriKind.Relative));
                     opis5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(lista5[2]);
+                    btn5.IsEnabled = true;
                 }else
                 {
                     string path5 = "/WeatherIcon/" + "unknown_weather.png";
@@ -390,7 +405,9 @@ namespace WeatherForecastApp
                     slash5dan.Content = "";
                     minTemp5dan.Content = "";
                     opis5dan.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("try again later");
-                }
+                    btn5.IsEnabled = false;
+                    btn5.Opacity = 0;
+                }*/
 
                 Console.ReadLine();
 
@@ -480,7 +497,28 @@ namespace WeatherForecastApp
                 Temp_hourly5.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
                 ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
                 slika_hourly5.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
-            }else
+
+                //za sesti sat u hourly
+                hourly6.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly6.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly6.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly6.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+                //za sedmi sat u hourly
+                hourly7.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly7.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly7.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly7.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+
+                //za osmi sat u hourly
+                hourly8.Content = output.list[++starting_index].dt_txt.ToString("HH:mm");
+                opis_hourly8.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(output.list[starting_index].weather[0].description);
+                Temp_hourly8.Content = string.Format("{0}\u00B0", (int)output.list[starting_index].main.temp);
+                ikona1 = converterIcon(output.list[starting_index].weather[0].id, output.list[starting_index].sys.pod);
+                slika_hourly8.Source = new BitmapImage(new Uri("/WeatherIcon/" + ikona1, UriKind.Relative));
+            }/*else
             {
                 string unknown_hourly = "/WeatherIcon/" + "unknown_weather.png";
 
@@ -490,7 +528,7 @@ namespace WeatherForecastApp
                 Temp_hourly1.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("No data");
                 slika_hourly1.Source = new BitmapImage(new Uri(unknown_hourly, UriKind.Relative));
 
-                //za prvi drugi u hourly
+                //za drugi sat u hourly
                 hourly2.Content = "--:--";
                 opis_hourly2.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("try again later");
                 Temp_hourly2.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("No data");
@@ -514,7 +552,7 @@ namespace WeatherForecastApp
                 Temp_hourly5.Content = CultureInfo.CurrentCulture.TextInfo.ToTitleCase("No data");
                 slika_hourly5.Source = new BitmapImage(new Uri(unknown_hourly, UriKind.Relative));
 
-            }
+            }*/
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -523,11 +561,11 @@ namespace WeatherForecastApp
             DateTime danas = DateTime.Now;
             switch (btn)
             {
-                case "btn1": danas=danas.AddDays(1);  break;
-                case "btn2": danas=danas.AddDays(2);  break;
-                case "btn3": danas=danas.AddDays(3);  break;
-                case "btn4": danas=danas.AddDays(4);  break;
-                case "btn5": danas=danas.AddDays(5);  break;
+                case "btn1":   break;
+                case "btn2": danas=danas.AddDays(1);  break;
+                case "btn3": danas=danas.AddDays(2);  break;
+                case "btn4": danas=danas.AddDays(3);  break;
+                case "btn5": danas=danas.AddDays(4);  break;
                 default: break;
             }
             hourly_datum.Content = danas.ToString("dd.MM.yyyy");
@@ -537,7 +575,7 @@ namespace WeatherForecastApp
             {
                 if (danas.CompareTo(DateTime.Now) == 0)
                 {
-                    if (danas.CompareTo(output.list[i].dt_txt) > 0)
+                    if (danas.CompareTo(output.list[i].dt_txt) < 0)
                     {
                         starting_index = i;
                         break;
@@ -551,11 +589,12 @@ namespace WeatherForecastApp
                     }
                 }
             }
+            
             if(btn.Equals("btn5") && starting_index == 0)
             {
                 starting_index = -1;
             }
-            popuniHourly(starting_index);
+            popuniHourly(starting_index); 
 
         }
 
