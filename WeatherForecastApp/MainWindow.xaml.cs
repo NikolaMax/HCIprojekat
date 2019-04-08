@@ -144,14 +144,14 @@ namespace WeatherForecastApp
                 slikaDanasnjiDan.Source = new BitmapImage(new Uri(path, UriKind.Relative));
 
                 int starting_index= 0;
-                for(int i=0; i < output.list.Count; i++)
+               /* for(int i=0; i < output.list.Count; i++)
                 {
                     if (output.list[i].dt_txt.CompareTo(DateTime.Now)>0)
                     {
                         starting_index = i;
                         break;
                     }
-                }
+                }*/
 
 
                 popuniHourly(starting_index);
@@ -318,7 +318,7 @@ namespace WeatherForecastApp
                 DateTime datum = DateTime.Now;
                 //za danas
                 danasnjiDatum.Content = datum.ToString("dd.MM.yyyy HH:mm")+"\n"+datum.DayOfWeek;
-                MaxMin.Content = string.Format("      {0}\u00B0 / {1}\u00B0", (int)output.list[0].main.temp_max, (int)output.list[0].main.temp_min);
+                MaxMin.Content = string.Format("      {0}\u00B0 / {1}\u00B0", (int)maxvreme0dan, (int)minvreme0dan);
                 Humidity.Content = string.Format("{0}%", (int)output.list[0].main.humidity);
                 Pressure.Content = string.Format("{0} mb", Math.Round(output.list[0].main.pressure, 2));
 
@@ -572,7 +572,7 @@ namespace WeatherForecastApp
             
             for(int i=0; i<output.list.Count; i++)
             {
-                if (danas.CompareTo(DateTime.Now) == 0)
+                /*if (danas.CompareTo(DateTime.Now) == 0)
                 {
                     if (danas.CompareTo(output.list[i].dt_txt) < 0)
                     {
@@ -580,13 +580,13 @@ namespace WeatherForecastApp
                         break;
                     }
                 }else
-                {
+                {*/
                     if (danas.Day.CompareTo(output.list[i].dt_txt.Day) == 0)
                     {
                         starting_index = i;
                         break;
                     }
-                }
+                //}
             }
             
             if(btn.Equals("btn5") && starting_index == 0)
