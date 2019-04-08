@@ -14,7 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using System.Net;
-
+using RestSharp;
+using System.Collections;
+using System.IO;
 using System.Globalization;
 
 namespace WeatherForecastApp
@@ -28,25 +30,67 @@ namespace WeatherForecastApp
         public static InformacijeVreme.root output = null;
         const string APPID = "80ec634e41a33408c4d4ac0433cd5e6a";
         string cityName = string.Empty;
+        List<City> cities = new List<City>();
        
         public MainWindow()
         {
             InitializeComponent();
+            InitializeCities();
+            int size = this.cities.Count;
             cityName = getCurrentWeather();
             getWeather(cityName, APPID);
 
+        }
+
+        public class City
+        {
+            public string name { get; set; }
+        }
+
+        public void InitializeCities()
+        {
+            using (StreamReader r = new StreamReader("../../City/city.list.json"))
+            {
+                string json = r.ReadToEnd();
+                List<City> items = JsonConvert.DeserializeObject<List<City>>(json);
+                this.cities = items;
+
+            }
+        }
+
+        public bool isValidCity(string city)
+        {
+            bool check = false;
+            foreach (var c in this.cities)
+            {
+                if (c.name.Equals(city))
+                    check = true;
+            }
+            return check;
         }
 
         public void onBtnClick(object sender, RoutedEventArgs args)
         {
             //treba da se proveri da li je unos  u textbox-u null, ako jeste, da ostane ovaj isti
             cityName = searchTb.Text;
-            getWeather(cityName, APPID);
+            if (cityName != "")
+                if (isValidCity(cityName))
+                {
+                    getWeather(cityName, APPID);
+                    lbl_error.Content = "";
+                }
+                else
+                {
+                    Console.WriteLine(cityName + " city is not in our database!");
+                    lbl_error.Content = "Unkown location";
+                }
 
         }
 
         public string getCurrentWeather()
         {
+            /*
+             * Stara verzija (ponekad vraca null za city)
             using (WebClient web = new WebClient())
             {
                 string url = "https://geoip-db.com/json";
@@ -55,8 +99,23 @@ namespace WeatherForecastApp
                 CurrentWeather.root output = result;
                 return output.city;
             }
-           
-            
+            */
+            string city = string.Empty;
+
+            var client = new RestClient("https://ipapi.co/json");
+            var request = new RestRequest()
+            {
+                Method = Method.GET
+            };
+            var response = client.Execute(request);
+            var dictionary = JsonConvert.DeserializeObject<IDictionary>(response.Content);
+
+            city = (string)dictionary["city"];
+            if (city == null)
+                city = "Novi Sad";
+
+            return city;
+
         }
 
         public void getWeather(string city, string APPID)
